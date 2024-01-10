@@ -14,7 +14,7 @@ var asciiUpper = []string{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",
 var asciiNum = []string{"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"}
 var asciiSym = []string{"!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", ">", "?", "@", "[", "\\", "]", "_", "`"}
 var length int
-var upper, num, sym bool
+var upper, num, sym, all bool
 
 func init() {
     flag.Usage = func() {
@@ -26,11 +26,17 @@ func init() {
     flag.BoolVar(&upper, "u", false, "Include uppercase letters")
     flag.BoolVar(&num, "d", false, "Include numbers")
     flag.BoolVar(&sym, "s", false, "Include symbols")
+    flag.BoolVar(&all, "a", false, "Include any ascii characters")
 }
 
 func createPassword(length int) string {
     buildChars := asciiLower
     passwordChars := make([]string, length)
+    if all {
+        buildChars = append(buildChars, asciiUpper...)
+        buildChars = append(buildChars, asciiNum...)
+        buildChars = append(buildChars, asciiSym...)
+    }
     if upper {
         buildChars = append(buildChars, asciiUpper...)
     }
