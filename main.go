@@ -25,7 +25,7 @@ func init() {
     flag.BoolVar(&all, "a", false, "Include any ascii characters")
 }
 
-func createPassword(length int) (error, string) {
+func CreatePassword(length int) (error, string) {
     if length <= 0 {
         return errors.New("Error: Length must be greater than 0"), ""
     }
@@ -56,7 +56,7 @@ func createPassword(length int) (error, string) {
 
 func main() {
     flag.Parse()
-    err, password := createPassword(length)
+    err, password := CreatePassword(length)
     if err != nil {
         fmt.Println(err)
         flag.PrintDefaults()
