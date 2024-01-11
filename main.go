@@ -3,7 +3,7 @@ package main
 import (
     "fmt"
     "strings"
-    // "os"
+    "errors"
     "flag"
     "math/rand"
 )
@@ -29,7 +29,10 @@ func init() {
     flag.BoolVar(&all, "a", false, "Include any ascii characters")
 }
 
-func createPassword(length int) string {
+func createPassword(length int) (error, string) {
+    if length <= 0 {
+        return errors.New("Error: Length must be greater than 0"), ""
+    }
     buildChars := asciiLower
     passwordChars := make([]string, length)
     if all {
@@ -52,11 +55,16 @@ func createPassword(length int) string {
         passwordChars[i] = char
     }
     password := strings.Join(passwordChars, "")
-    return password
+    return nil, password
 }
 
 func main() {
     flag.Parse()
-    password := createPassword(length)
-    fmt.Println(password)
+    err, password := createPassword(length)
+    if err != nil {
+        fmt.Println(err)
+        flag.PrintDefaults()
+    } else {
+        fmt.Println(password)
+    }
 }
