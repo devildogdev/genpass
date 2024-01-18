@@ -25,9 +25,9 @@ func init() {
     flag.BoolVar(&all, "a", false, "Include any ascii characters")
 }
 
-func CreatePassword(length int) (error, string) {
+func CreatePassword(length int) (string, error) {
     if length <= 0 {
-        return errors.New("Error: Length must be greater than 0"), ""
+        return "", errors.New("Error: Length must be greater than 0")
     }
     buildChars := chars.AsciiLower
     passwordChars := make([]string, length)
@@ -51,12 +51,12 @@ func CreatePassword(length int) (error, string) {
         passwordChars[i] = char
     }
     password := strings.Join(passwordChars, "")
-    return nil, password
+    return password, nil
 }
 
 func main() {
     flag.Parse()
-    err, password := CreatePassword(length)
+    password, err := CreatePassword(length)
     if err != nil {
         fmt.Println(err)
         flag.PrintDefaults()
