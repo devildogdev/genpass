@@ -1,3 +1,3 @@
-module github.com/j-tew/genpass
+module github.com/devildogdev/genpass
 
 go 1.21.5

@@ -6,7 +6,7 @@ import (
     "errors"
     "flag"
     "math/rand"
-    "github.com/j-tew/genpass/internal/chars"
+    "github.com/devildogdev/genpass/internal/chars"
 )
 
 var length int
